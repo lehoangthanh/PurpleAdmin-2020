@@ -1,24 +1,23 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Helmet } from 'react-helmet'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import dashboardRoutes from '../../routes/dashboardRoutes';
 
 class Header extends Component {
   render () {
+    const dashboardRoute = dashboardRoutes.find(r => r.code === 'dashboard');
     return (
       <React.Fragment>
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>{this.props.title || 'Smile'}</title>
-        </Helmet>
+
           {/*partial:partials/_navbar.html*/}
           <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-              <a className="navbar-brand brand-logo" href="/">
+              <Link className="navbar-brand brand-logo" to={dashboardRoute.path}>
                 <img src="/assets/images/logo.svg" alt="logo"/>
-              </a>
-              <a className="navbar-brand brand-logo-mini" href="/">
+              </Link>
+              <Link className="navbar-brand brand-logo-mini" to={dashboardRoute.path}>
                 <img src="/assets/images/logo-mini.svg" alt="logo"/>
-              </a>
+              </Link>
             </div>
             <div className="navbar-menu-wrapper d-flex align-items-stretch">
               <button className="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">

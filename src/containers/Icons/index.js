@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
+import { MdiComponent } from '../../components/Icons';
 import { connect } from 'react-redux'
-import { TypographyComponent } from '../../components/UIFeatures';
 
-class TypographyContainer extends Component {
-
+class IconsContainer extends Component {
   render () {
-    return(
-      <TypographyComponent {...this.props} />
+    this.state = {
+      title: 'Icons',
+    }
+    return (
+      <MdiComponent
+        {...this.props}
+
+      />
     )
   }
 }
 
 const mapStateToProps = state => ({
-
+  title: state.title
 })
 const mapDispatchToProps = dispatch => ({
 
@@ -21,4 +26,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TypographyContainer)
+)(IconsContainer)

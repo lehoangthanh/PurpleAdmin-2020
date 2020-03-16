@@ -1,0 +1,1 @@
+export { default as BasicElementComponent } from './basicElement';

@@ -4,28 +4,40 @@ import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import { Link, useRouteMatch, useLocation }from "react-router-dom";
 import _ from 'lodash';
 import dashboardRoutes from '../../routes/dashboardRoutes';
+import { Helmet } from 'react-helmet';
+
+const setRouteStateActive = (route) => {
+  const [routeActive, setRouteActive] = useState({});
+  if (isActive(route) && _.isEmpty(routeActive)) {
+    setRouteActive(route);
+  }
+}
 
 const isActive = (route) => {
   const location = new useLocation();
-  console.log('===location===',location, route.path)
-  return !_.isNil(useRouteMatch(route.path)) || (location.pathname === '/' && route.path === '/dashboard');
+  const boolIsActive = !_.isNil(useRouteMatch(route.path)) || (location.pathname === '/' && route.path === '/dashboard');
+  return boolIsActive;
 }
 
 const classActive = (route) => {
-  // console.log('==classActive==',route, isActive(route) )
   return isActive(route) ? 'active' : '';
 }
 const RouteEle = (props) => {
   const { route } = props;
   if (!_.isNil(route.collapse) || route.collapse === false) return false;
+  setRouteStateActive(route);
+
   const _classActive = classActive(route);
   return(
-    <li className={"nav-item " + _classActive} >
-      <Link className="nav-link" to={route.path}>
-        <span className="menu-title">{route.name}</span>
-        <i className={route.icon}></i>
-      </Link>
-    </li>
+    <React.Fragment>
+      <RenderTitle route={route}/>
+      <li className={"nav-item " + _classActive} >
+        <Link className="nav-link" to={route.path}>
+          <span className="menu-title">{route.name}</span>
+          <i className={route.icon}></i>
+        </Link>
+      </li>
+    </React.Fragment>
   );
 }
 
@@ -37,9 +49,14 @@ const RouteCollapse = (props) => {
   return (
     <li className={"nav-item " + _classActive}>
       <Link className="nav-link"
-        to={null}
+        to={"#"}
          aria-controls="ui-basic"
-         onClick={() => setOpen(!isOpen)}>
+         onClick={(e) =>
+         {
+           setOpen(!isOpen);
+           e.preventDefault();
+
+         }}>
         <span className="menu-title">{route.name}</span>
         { isOpen ? <ExpandLess/> : <ExpandMore/> }
         <i className={route.icon} />
@@ -57,6 +74,17 @@ const RouteCollapse = (props) => {
       </Collapse>
     </li>
   );
+}
+
+const RenderTitle = (props) => {
+  const { route } = props;
+  if (!isActive(route)) return ' ';
+
+  return (
+    <Helmet>
+      <title>{route.title || route.name}</title>
+    </Helmet>)
+
 }
 
 const SideBar = (props) => {

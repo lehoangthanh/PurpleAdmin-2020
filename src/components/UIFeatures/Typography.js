@@ -1,6 +1,6 @@
 import React  from 'react';
 
-const TypographyComponent = () => {
+const Typography = () => {
 
   return(
     <div className="content-wrapper">
@@ -384,4 +384,4 @@ const TypographyComponent = () => {
   )
 }
 
-export default TypographyComponent;
+export default Typography;

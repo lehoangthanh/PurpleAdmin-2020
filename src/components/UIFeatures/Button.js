@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-class ButtonComponent extends Component {
+class Button extends Component {
   render () {
     return (
       <div className="content-wrapper">
@@ -470,5 +470,5 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ButtonComponent)
+)(Button)
 

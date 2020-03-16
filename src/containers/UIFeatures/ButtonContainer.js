@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ButtonComponent from '../../components/UIFeatures/ButtonComponent';
+import { ButtonComponent } from '../../components/UIFeatures';
 
 class ButtonContainer extends Component {
   render() {
