@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import dashboardRoutes from '../../routes/dashboardRoutes';
 
 class Header extends Component {
+
   render () {
     const dashboardRoute = dashboardRoutes.find(r => r.code === 'dashboard');
     return (
       <React.Fragment>
-
-          {/*partial:partials/_navbar.html*/}
           <nav className="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+
             <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
               <Link className="navbar-brand brand-logo" to={dashboardRoute.path}>
                 <img src="/assets/images/logo.svg" alt="logo"/>

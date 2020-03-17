@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, lazy } from 'react';
 import { connect } from 'react-redux';
 
 class HomeComponent extends Component {

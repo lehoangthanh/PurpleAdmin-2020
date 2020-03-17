@@ -16,7 +16,6 @@ import reducers from './reducers/index';
 import indexRoutes from './routes/index.jsx';
 
 const store = createStore(reducers, window.STATE_FROM_SERVER);
-
 const App = () => (
     <Provider store={store}>
       <Router>

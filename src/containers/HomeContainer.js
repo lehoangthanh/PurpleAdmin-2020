@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import HomeComponent from '../components/Home';
 
 class HomeContainer extends Component {
- render () {
+  render () {
    this.state = {
      title: 'Home',
    }

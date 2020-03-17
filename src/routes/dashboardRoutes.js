@@ -1,11 +1,23 @@
-import HomeContainer from '../containers/HomeContainer';
-import ButtonContainer from '../containers/UIFeatures/ButtonContainer';
-import TypographyContainer from '../containers/UIFeatures/TypographyContainer';
-import MdiContainer from '../containers/Icons';
-import BasicElementContainer from '../containers/Forms/BasicElementContainer';
-import TableContainer from '../containers/Tables/TableContainer';
-import Error404Container from '../containers/SamplePages/Error404Container';
-import Error500Container from '../containers/SamplePages/Error500Container';
+import React from 'react';
+
+// const HomeContainer = React.lazy(() =>  (import("../containers/HomeContainer")) );
+
+const HomeContainer = React.lazy(() => {
+  return new Promise(resolve => setTimeout(resolve, 2 * 1000)).then(
+    () => import("../containers/HomeContainer")
+  );
+});
+const MdiContainer = React.lazy(() => import("../containers/Icons"));
+
+const ButtonContainer = React.lazy(() => import("../containers/UIFeatures/ButtonContainer"));
+const TypographyContainer = React.lazy(() => import("../containers/UIFeatures/TypographyContainer"));
+
+const BasicElementContainer = React.lazy(() => import("../containers/Forms/BasicElementContainer"));
+
+const TableContainer = React.lazy(() => import("../containers/Tables/TableContainer"));
+
+const Error404Container = React.lazy(() => import("../containers/SamplePages/Error404Container"));
+const Error500Container = React.lazy(() => import("../containers/SamplePages/Error500Container"));
 
 const dashboardRoutes = [
   {
