@@ -3,6 +3,10 @@ import { BasicElementComponent } from '../../components/Forms';
 import { connect } from 'react-redux'
 
 class BasicElementContainer extends Component {
+  componentDidMount() {
+    this.props.completeLoadingBar();
+  }
+
   render () {
     this.state = {
       title: 'Basic Element',

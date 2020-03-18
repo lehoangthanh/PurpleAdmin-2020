@@ -1,84 +1,44 @@
-import React, { lazy, Suspense, useState } from 'react'
+// import React, { Component } from 'react'
+import React, { Component, Suspense, useState, useTransition } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-
+import LoadingBar from 'react-top-loading-bar';
 import dashboardRoutes from '../../routes/dashboardRoutes';
 import Header from './Header';
 import SideBar from './SideBar';
-import { makeStyles } from '@material-ui/core/styles'
-import LinearProgress from '@material-ui/core/LinearProgress'
+import { connect } from 'react-redux'
 
-const Dashboard = (props) => {
-  const useStyles = makeStyles(theme => ({
-    root: {
-      width: '100%',
-      '& > * + *': {
-        marginTop: theme.spacing(2),
-      },
-
-    },
-    muiLinearProgress: {
-      position: 'fixed',
-      width: '100%',
-      zIndex: '1080',
-    },
-    barColorPrimary: {
-      backgroundColor: '#b068ff'
-    }
-  }));
-
-  const LinearDeterminate = () => {
-    const classes = useStyles();
-    const [completed, setCompleted] = React.useState(0);
-
-    React.useEffect(() => {
-      let i = 0;
-
-      function progress () {
-        console.log('====', i++)
-        setCompleted(oldCompleted => {
-          if (oldCompleted === 100) {
-            return 0;
-          }
-          const diff = Math.random() * 10;
-          return Math.min(oldCompleted + diff, 100);
-        });
-      }
-
-      const timer = setInterval(progress, 500);
-      return () => {
-        clearInterval(timer);
-      };
-    }, []);
-
-    return (
-      <div className={classes.root}>
-        <LinearProgress
-          variant="determinate"
-          classes={{
-            determinate: classes.muiLinearProgress,
-            barColorPrimary: classes.barColorPrimary
-          }}
-          value={completed}
-          color={'primary'}
-
-        />
-        {/*<LinearProgress variant="determinate" value={completed} color="secondary" />*/}
-      </div>
-    );
+class Dashboard extends Component {
+// const Dashboard = (props) => {
+  constructor () {
+    super();
+  }
+  startLoadingBar = () => {
+    this.LoadingBar.continuousStart()
   }
 
-  return (
-    <React.Fragment>
-      <Helmet titleTemplate="%s - S.m.i.l.e" defaultTitle="S.m.i.l.e">
-        <meta charSet="utf-8"/>
-      </Helmet>
-      <div className="container-scroller">
-        <Header/>
-        {/*partial*/}
-        <div className="container-fluid page-body-wrapper">
-          <SideBar {...props}/>
-          <Suspense fallback={<LinearDeterminate/>}>
+  completeLoadingBar = () => {
+    this.LoadingBar.complete()
+  }
+
+  render () {
+    return (
+      <React.Fragment>
+        <Helmet titleTemplate="%s - S.m.i.l.e" defaultTitle="S.m.i.l.e">
+          <meta charSet="utf-8"/>
+        </Helmet>
+        <div className="container-scroller">
+          <LoadingBar onRef={ref => {
+            this.LoadingBar = ref;
+            this.LoadingBar.continuousStart(20)
+            // setTimeout(()=> { this.LoadingBar.complete()},3000)
+          }} />
+
+          <Header/>
+          {/*partial*/}
+          <div className="container-fluid page-body-wrapper">
+            <SideBar {...this.props}/>
+            <Suspense fallback={<div></div>}>
             <div className="main-panel">
               <Switch>
                 {dashboardRoutes.map((prop, key) => {
@@ -101,8 +61,16 @@ const Dashboard = (props) => {
                         return (
                           <Route
                             path={prop.path}
-                            component={prop.component}
+                            // component={prop.component}
                             key={key}
+                            render={routeProps => (
+                              <prop.component
+                                {...routeProps}
+                                handleClick={this.startLoadingBar}
+                                startFetch={this.startLoadingBar}
+                                completeLoadingBar={this.completeLoadingBar}
+                              />
+                            )}
                           />
                         );
                       }
@@ -117,20 +85,27 @@ const Dashboard = (props) => {
                         <Route
                           exact={prop.exact}
                           path={prop.path}
-                          component={prop.component}
+                          // component={prop.component}
                           key={key}
+                          render={routeProps => (
+                            <prop.component
+                              {...routeProps}
+                              handleClick={this.startLoadingBar}
+                              startFetch={this.startLoadingBar}
+                              completeLoadingBar={this.completeLoadingBar}
+                            />
+                          )}
                         />
                       );
                   }
                 })}
               </Switch>
             </div>
-          </Suspense>
+            </Suspense>
+          </div>
         </div>
-      </div>
-    </React.Fragment>
-  )
+      </React.Fragment>
+    )
+  }
 }
-
-
-export default Dashboard;
+export default Dashboard

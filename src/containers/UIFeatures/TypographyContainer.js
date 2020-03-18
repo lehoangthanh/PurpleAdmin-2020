@@ -3,6 +3,9 @@ import { connect } from 'react-redux'
 import { TypographyComponent } from '../../components/UIFeatures';
 
 class TypographyContainer extends Component {
+  componentDidMount() {
+    this.props.completeLoadingBar();
+  }
 
   render () {
     return(

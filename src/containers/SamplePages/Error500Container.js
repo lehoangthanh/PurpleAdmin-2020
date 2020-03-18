@@ -3,6 +3,9 @@ import { connect } from 'react-redux'
 import { Error500Component } from '../../components/SamplePages';
 
 class Error500Container extends Component {
+  componentDidMount() {
+    this.props.completeLoadingBar();
+  }
   render () {
     this.state = {
       title: 'Home',

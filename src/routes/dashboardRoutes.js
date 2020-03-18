@@ -1,23 +1,81 @@
 import React from 'react';
 
-// const HomeContainer = React.lazy(() =>  (import("../containers/HomeContainer")) );
+const getRandomArbitrary = (max) => {
+  return Math.random() * (max - 1) + 1;
+}
 
 const HomeContainer = React.lazy(() => {
-  return new Promise(resolve => setTimeout(resolve, 2 * 1000)).then(
+  return new Promise(resolve => setTimeout(resolve, getRandomArbitrary(5) * 1000)).then(
     () => import("../containers/HomeContainer")
   );
 });
-const MdiContainer = React.lazy(() => import("../containers/Icons"));
 
-const ButtonContainer = React.lazy(() => import("../containers/UIFeatures/ButtonContainer"));
-const TypographyContainer = React.lazy(() => import("../containers/UIFeatures/TypographyContainer"));
+const MdiContainer = React.lazy(() => {
+  return new Promise(resolve => setTimeout(resolve, getRandomArbitrary(5) * 1000)).then(
+    () => import("../containers/Icons")
+  );
+});
 
-const BasicElementContainer = React.lazy(() => import("../containers/Forms/BasicElementContainer"));
+const ButtonContainer = React.lazy(() => {
+  return new Promise(resolve => setTimeout(resolve, getRandomArbitrary(5) * 1000)).then(
+    () => import("../containers/UIFeatures/ButtonContainer")
+  );
+});
 
-const TableContainer = React.lazy(() => import("../containers/Tables/TableContainer"));
+const TypographyContainer = React.lazy(() => {
+  return new Promise(resolve => setTimeout(resolve, getRandomArbitrary(5) * 1000)).then(
+    () => import("../containers/UIFeatures/TypographyContainer")
+  );
+});
 
-const Error404Container = React.lazy(() => import("../containers/SamplePages/Error404Container"));
-const Error500Container = React.lazy(() => import("../containers/SamplePages/Error500Container"));
+const BasicElementContainer = React.lazy(() => {
+  return new Promise(resolve => setTimeout(resolve, getRandomArbitrary(5) * 1000)).then(
+    () => import("../containers/Forms/BasicElementContainer")
+  );
+});
+
+const TableContainer = React.lazy(() => {
+  return new Promise(resolve => setTimeout(resolve, getRandomArbitrary(5) * 1000)).then(
+    () => import("../containers/Tables/TableContainer")
+  );
+});
+
+const Error404Container = React.lazy(() => {
+  return new Promise(resolve => setTimeout(resolve, getRandomArbitrary(5) * 1000)).then(
+    () => import("../containers/SamplePages/Error404Container")
+  );
+});
+
+const Error500Container = React.lazy(() => {
+  return new Promise(resolve => setTimeout(resolve, getRandomArbitrary(5) * 1000)).then(
+    () => import("../containers/SamplePages/Error500Container")
+  );
+});
+
+// const HomeContainer = React.lazy(() =>  (import("../containers/HomeContainer")) );
+
+// const MdiContainer = React.lazy(() => import("../containers/Icons"));
+//
+// const ButtonContainer = React.lazy(() => import("../containers/UIFeatures/ButtonContainer"));
+// const TypographyContainer = React.lazy(() => import("../containers/UIFeatures/TypographyContainer"));
+//
+// const BasicElementContainer = React.lazy(() => import("../containers/Forms/BasicElementContainer"));
+//
+// const TableContainer = React.lazy(() => import("../containers/Tables/TableContainer"));
+//
+// const Error404Container = React.lazy(() => import("../containers/SamplePages/Error404Container"));
+// const Error500Container = React.lazy(() => import("../containers/SamplePages/Error500Container"));
+
+
+// import HomeContainer from '../containers/HomeContainer';
+// import ButtonContainer from '../containers/UIFeatures/ButtonContainer';
+// import TypographyContainer from '../containers/UIFeatures/TypographyContainer';
+// import MdiContainer from '../containers/Icons';
+// import BasicElementContainer from '../containers/Forms/BasicElementContainer';
+// import TableContainer from '../containers/Tables/TableContainer';
+// import Error404Container from '../containers/SamplePages/Error404Container';
+// import Error500Container from '../containers/SamplePages/Error500Container';
+
 
 const dashboardRoutes = [
   {

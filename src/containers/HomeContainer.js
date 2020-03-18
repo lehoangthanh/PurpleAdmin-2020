@@ -3,9 +3,13 @@ import { connect } from 'react-redux'
 import HomeComponent from '../components/Home';
 
 class HomeContainer extends Component {
+  componentDidMount() {
+    this.props.completeLoadingBar();
+  }
+
   render () {
    this.state = {
-     title: 'Home',
+
    }
    return (
     <HomeComponent

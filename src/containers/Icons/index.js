@@ -3,6 +3,9 @@ import { MdiComponent } from '../../components/Icons';
 import { connect } from 'react-redux'
 
 class IconsContainer extends Component {
+  componentDidMount() {
+    this.props.completeLoadingBar();
+  }
   render () {
     this.state = {
       title: 'Icons',
