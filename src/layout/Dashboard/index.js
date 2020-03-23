@@ -6,13 +6,16 @@ import LoadingBar from 'react-top-loading-bar';
 import dashboardRoutes from '../../routes/dashboardRoutes';
 import Header from './Header';
 import SideBar from './SideBar';
+import { connect } from 'react-redux'
+const Error404Container = React.lazy(() => import("../../containers/SamplePages/Error404Container"));
 
 class Dashboard extends Component {
 
   constructor () {
     super();
     this.state = {
-      loadingBar:null
+      loadingBar: null,
+      isOpenMenu: false
     }
   }
 
@@ -20,7 +23,6 @@ class Dashboard extends Component {
     if(_.isNull(this.state.loadingBar)){
       this.setState({loadingBar: this.LoadingBar})
     }
-
   }
 
   // startLoadingBar = () => {
@@ -30,10 +32,13 @@ class Dashboard extends Component {
   // completeLoadingBar = () => {
   //   this.LoadingBar.complete()
   // }
-
+  toggleMenu = () => {
+    this.setState({isOpenMenu: !this.state.isOpenMenu})
+  }
   render () {
-    const SampleRoutes = dashboardRoutes.find( r => (!_.isNil(r.state) && r.state === 'samplePage'));
-    const Error404Route = SampleRoutes.views.find(s => (!_.isNil(s.code) && s.code === 'error404_page'));
+
+    // const SampleRoutes = dashboardRoutes.find( r => (!_.isNil(r.state) && r.state === 'samplePage'));
+    // const Error404Route = SampleRoutes.views.find(s => (!_.isNil(s.code) && s.code === 'error404_page'));
     return (
       <React.Fragment>
         <Helmet titleTemplate="%s - S.m.i.l.e" defaultTitle="S.m.i.l.e">
@@ -47,12 +52,18 @@ class Dashboard extends Component {
             // setTimeout(()=> { this.LoadingBar.complete()},3000)
           }} />
 
-          <Header/>
+          <Header
+            {...this.props}
+            {...this.state}
+            toggleMenu={this.toggleMenu}
+          />
           {/*partial*/}
           <div className="container-fluid page-body-wrapper">
             <SideBar
               {...this.props}
+              {...this.state}
               loadingBar={this.state.loadingBar}
+              toggleMenu={this.toggleMenu}
             />
             <Suspense fallback={<div></div>}>
             <div className="main-panel">
@@ -112,7 +123,7 @@ class Dashboard extends Component {
                   }
                 })}
                 <Route render={routeProps => (
-                  <Error404Route.component
+                  <Error404Container
                     {...routeProps}
                     loadingBar={this.state.loadingBar}
                   />
@@ -126,4 +137,13 @@ class Dashboard extends Component {
     )
   }
 }
-export default Dashboard
+const mapStateToProps = state => ({
+
+})
+const mapDispatchToProps = dispatch => ({
+
+})
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dashboard)

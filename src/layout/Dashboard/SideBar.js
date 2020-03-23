@@ -32,6 +32,7 @@ const RouteEle = (props) => {
 
   const handleClick = () => {
     loadingBar.continuousStart(10)
+    props.toggleMenu();
   }
   useEffect(() => {
     setLoadingBar(props.loadingBar);
@@ -43,8 +44,12 @@ const RouteEle = (props) => {
       <RenderTitle route={route}/>
       <li className={"nav-item " + _classActive} >
         <Link className="nav-link" to={route.path} onClick={handleClick}>
-          <span className="menu-title">{route.name}</span>
-          <i className={route.icon}></i>
+          <span className="menu-title">
+            {route.name}
+          </span>
+          {
+            _.isObject(route.icon) ? <i className={"mdi menu-icon"}>{route.icon}</i> : <i className={route.icon} />
+          }
         </Link>
       </li>
     </React.Fragment>
@@ -67,9 +72,15 @@ const RouteCollapse = (props) => {
            e.preventDefault();
 
          }}>
+
         <span className="menu-title">{route.name}</span>
-        { isOpen ? <ExpandLess/> : <ExpandMore/> }
-        <i className={route.icon} />
+        <i>
+          { isOpen ? <ExpandLess/> : <ExpandMore/> }
+        </i>
+        {
+          _.isObject(route.icon) ? <i className={"mdi menu-icon"}>{route.icon}</i> : <i className={route.icon} />
+        }
+
       </Link>
       <Collapse className="" in={isOpen}>
         <ul className="nav flex-column sub-menu">
@@ -101,7 +112,7 @@ const SideBar = (props) => {
   return (
     <React.Fragment>
       {/*partial:partials/_sidebar.html*/}
-      <nav className="sidebar sidebar-offcanvas" id="sidebar">
+      <nav className="sidebar sidebar-offcanvas" id="sidebar" style={{ right: (props.isOpenMenu) ? 0 : -260}}>
         <ul className="nav">
           <li className="nav-item nav-profile">
             <Link to="/dashboard" className="nav-link">

@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import dashboardRoutes from '../../routes/dashboardRoutes';
 
 class Header extends Component {
+  constructor (props) {
+    super(props)
+  }
 
   render () {
     const dashboardRoute = dashboardRoutes.find(r => r.code === 'dashboard');
@@ -163,7 +166,9 @@ class Header extends Component {
                 </li>
               </ul>
               <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
-                      data-toggle="offcanvas">
+                      data-toggle="offcanvas"
+                      onClick={() => this.props.toggleMenu() }
+              >
                 <span className="mdi mdi-menu"></span>
               </button>
             </div>
@@ -173,7 +178,6 @@ class Header extends Component {
   }
 }
 const mapStateToProps = state => ({
-
 })
 const mapDispatchToProps = dispatch => ({
 

@@ -13124,7 +13124,12 @@ dl {
         .sidebar .nav .nav-item.active > .nav-link i {
           color: #b66dff; }
       .sidebar .nav .nav-item:hover {
-        background: #fcfcfc; }
+        background: #fcfcfc;
+      }
+
+      .sidebar .nav .nav-item .nav-link:hover {
+        background-color: rgba(191, 128, 255, 0.05);
+      }
       .sidebar .nav .nav-item.nav-profile .nav-link {
         height: auto;
         line-height: 1;
@@ -13173,17 +13178,21 @@ dl {
           line-height: 1;
           height: auto;
           border-top: 0; }
-          .sidebar .nav.sub-menu .nav-item .nav-link:before {
-            content: "\F054";
-            font-family: "Material Design Icons";
-            display: block;
-            position: absolute;
-            left: 0px;
-            top: 50%;
-            -webkit-transform: translateY(-50%);
-            transform: translateY(-50%);
-            color: #a2a2a2;
-            font-size: .75rem; }
+        .sidebar .nav.sub-menu .nav-item .nav-link .icon {
+          margin-right: 10px;
+          margin-left: 0 !important;
+        }
+          /*.sidebar .nav.sub-menu .nav-item .nav-link:before {*/
+          /*  content: "\F054";*/
+          /*  font-family: "Material Design Icons";*/
+          /*  display: block;*/
+          /*  position: absolute;*/
+          /*  left: 0px;*/
+          /*  top: 50%;*/
+          /*  -webkit-transform: translateY(-50%);*/
+          /*  transform: translateY(-50%);*/
+          /*  color: #a2a2a2;*/
+          /*  font-size: .75rem; }*/
             .rtl .sidebar .nav.sub-menu .nav-item .nav-link:before {
               left: auto;
               right: 0; }
@@ -13191,7 +13200,7 @@ dl {
             color: #b66dff;
             background: transparent; }
           .sidebar .nav.sub-menu .nav-item .nav-link:hover {
-            color: #555555; }
+            color: #3B3D4A; }
         .sidebar .nav.sub-menu .nav-item:hover {
           background: transparent; }
 
