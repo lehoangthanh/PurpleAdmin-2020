@@ -6,6 +6,7 @@ import _ from 'lodash';
 import dashboardRoutes from '../../routes/dashboardRoutes';
 import { Helmet } from 'react-helmet';
 
+
 const setRouteStateActive = (route) => {
   const [routeActive, setRouteActive] = useState({});
   if (isActive(route) && _.isEmpty(routeActive)) {
@@ -23,16 +24,25 @@ const classActive = (route) => {
   return isActive(route) ? 'active' : '';
 }
 const RouteEle = (props) => {
+  const [loadingBar, setLoadingBar] = useState(null)
   const { route } = props;
-  if (!_.isNil(route.collapse) || route.collapse === false) return false;
+  if (!_.isNil(route.collapse) || route.collapse === true) return false;
+
   setRouteStateActive(route);
+
+  const handleClick = () => {
+    loadingBar.continuousStart(10)
+  }
+  useEffect(() => {
+    setLoadingBar(props.loadingBar);
+  })
 
   const _classActive = classActive(route);
   return(
     <React.Fragment>
       <RenderTitle route={route}/>
       <li className={"nav-item " + _classActive} >
-        <Link className="nav-link" to={route.path}>
+        <Link className="nav-link" to={route.path} onClick={handleClick}>
           <span className="menu-title">{route.name}</span>
           <i className={route.icon}></i>
         </Link>
@@ -66,7 +76,7 @@ const RouteCollapse = (props) => {
           {
             route.views.map((subRoute, index) => {
               return(
-               <RouteEle route={subRoute} key={"sub-route_"+index}/>
+               <RouteEle {...props} route={subRoute} key={"sub-route_"+index}/>
               )
             })
           }
@@ -82,7 +92,7 @@ const RenderTitle = (props) => {
 
   return (
     <Helmet>
-      <title>{route.title || route.name}</title>
+      <title>{props.title || route.title || route.name}</title>
     </Helmet>)
 
 }
@@ -113,9 +123,9 @@ const SideBar = (props) => {
               const st = {};
               const collapse = _.get(route, 'collapse', false);
               if(collapse) {
-                return <RouteCollapse route={route} key={"route_" + key}/>;
+                return <RouteCollapse {...props} route={route} key={"route_" + key} />;
               } else {
-                return <RouteEle route={route} key={"route_" + key}/>;
+                return <RouteEle {...props} route={route} key={"route_" + key}/>;
               }
             })
           }

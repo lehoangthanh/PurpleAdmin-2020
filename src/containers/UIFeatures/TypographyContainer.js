@@ -3,8 +3,16 @@ import { connect } from 'react-redux'
 import { TypographyComponent } from '../../components/UIFeatures';
 
 class TypographyContainer extends Component {
+  constructor () {
+    super();
+  }
+
   componentDidMount() {
-    this.props.completeLoadingBar();
+    this.props.loadingBar.complete();
+  }
+
+  componentDidUpdate() {
+    this.props.loadingBar.complete();
   }
 
   render () {

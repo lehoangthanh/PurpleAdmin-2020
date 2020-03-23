@@ -1,25 +1,34 @@
-// import React, { Component } from 'react'
-import React, { Component, Suspense, useState, useTransition } from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React, { Component, Suspense } from 'react'
+import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import LoadingBar from 'react-top-loading-bar';
 import dashboardRoutes from '../../routes/dashboardRoutes';
 import Header from './Header';
 import SideBar from './SideBar';
-import { connect } from 'react-redux'
 
 class Dashboard extends Component {
-// const Dashboard = (props) => {
+
   constructor () {
     super();
-  }
-  startLoadingBar = () => {
-    this.LoadingBar.continuousStart()
+    this.state = {
+      loadingBar:null
+    }
   }
 
-  completeLoadingBar = () => {
-    this.LoadingBar.complete()
+  componentDidMount() {
+    if(_.isNull(this.state.loadingBar)){
+      this.setState({loadingBar: this.LoadingBar})
+    }
+
   }
+
+  // startLoadingBar = () => {
+  //   this.LoadingBar.continuousStart()
+  // }
+  //
+  // completeLoadingBar = () => {
+  //   this.LoadingBar.complete()
+  // }
 
   render () {
     return (
@@ -28,16 +37,20 @@ class Dashboard extends Component {
           <meta charSet="utf-8"/>
         </Helmet>
         <div className="container-scroller">
-          <LoadingBar onRef={ref => {
+          <LoadingBar
+            color='#b068ff'
+            onRef={ref => {
             this.LoadingBar = ref;
-            this.LoadingBar.continuousStart(20)
             // setTimeout(()=> { this.LoadingBar.complete()},3000)
           }} />
 
           <Header/>
           {/*partial*/}
           <div className="container-fluid page-body-wrapper">
-            <SideBar {...this.props}/>
+            <SideBar
+              {...this.props}
+              loadingBar={this.state.loadingBar}
+            />
             <Suspense fallback={<div></div>}>
             <div className="main-panel">
               <Switch>
@@ -66,9 +79,7 @@ class Dashboard extends Component {
                             render={routeProps => (
                               <prop.component
                                 {...routeProps}
-                                handleClick={this.startLoadingBar}
-                                startFetch={this.startLoadingBar}
-                                completeLoadingBar={this.completeLoadingBar}
+                                loadingBar={this.state.loadingBar}
                               />
                             )}
                           />
@@ -90,9 +101,7 @@ class Dashboard extends Component {
                           render={routeProps => (
                             <prop.component
                               {...routeProps}
-                              handleClick={this.startLoadingBar}
-                              startFetch={this.startLoadingBar}
-                              completeLoadingBar={this.completeLoadingBar}
+                              loadingBar={this.state.loadingBar}
                             />
                           )}
                         />

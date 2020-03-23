@@ -3,9 +3,18 @@ import { connect } from 'react-redux'
 import { Error404Component } from '../../components/SamplePages';
 
 class Error404Container extends Component {
-  componentDidMount() {
-    this.props.completeLoadingBar();
+  constructor () {
+    super();
   }
+
+  componentDidMount() {
+    this.props.loadingBar.complete();
+  }
+
+  componentDidUpdate() {
+    this.props.loadingBar.complete();
+  }
+
   render () {
     this.state = {
       title: 'Home',

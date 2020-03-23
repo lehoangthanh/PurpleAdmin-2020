@@ -3,8 +3,16 @@ import { BasicElementComponent } from '../../components/Forms';
 import { connect } from 'react-redux'
 
 class BasicElementContainer extends Component {
+  constructor () {
+    super();
+  }
+
   componentDidMount() {
-    this.props.completeLoadingBar();
+    this.props.loadingBar.complete();
+  }
+
+  componentDidUpdate() {
+    this.props.loadingBar.complete();
   }
 
   render () {

@@ -3,8 +3,17 @@ import { connect } from 'react-redux'
 import HomeComponent from '../components/Home';
 
 class HomeContainer extends Component {
+  constructor () {
+    super();
+
+  }
+
   componentDidMount() {
-    this.props.completeLoadingBar();
+    this.props.loadingBar.complete();
+  }
+
+  componentDidUpdate() {
+    this.props.loadingBar.complete();
   }
 
   render () {
@@ -21,7 +30,7 @@ class HomeContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  title: state.title
+
 })
 const mapDispatchToProps = dispatch => ({
 

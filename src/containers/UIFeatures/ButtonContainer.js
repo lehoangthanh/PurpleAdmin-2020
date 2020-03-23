@@ -3,9 +3,18 @@ import { connect } from 'react-redux';
 import { ButtonComponent } from '../../components/UIFeatures';
 
 class ButtonContainer extends Component {
-  componentDidMount() {
-    this.props.completeLoadingBar();
+  constructor () {
+    super();
   }
+
+  componentDidMount() {
+    this.props.loadingBar.complete();
+  }
+
+  componentDidUpdate() {
+    this.props.loadingBar.complete();
+  }
+
   render() {
     return(
       <ButtonComponent
