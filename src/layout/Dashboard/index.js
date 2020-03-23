@@ -1,6 +1,7 @@
 import React, { Component, Suspense } from 'react'
 import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import  _ from 'lodash';
 import LoadingBar from 'react-top-loading-bar';
 import dashboardRoutes from '../../routes/dashboardRoutes';
 import Header from './Header';
@@ -31,6 +32,8 @@ class Dashboard extends Component {
   // }
 
   render () {
+    const SampleRoutes = dashboardRoutes.find( r => (!_.isNil(r.state) && r.state === 'samplePage'));
+    const Error404Route = SampleRoutes.views.find(s => (!_.isNil(s.code) && s.code === 'error404_page'));
     return (
       <React.Fragment>
         <Helmet titleTemplate="%s - S.m.i.l.e" defaultTitle="S.m.i.l.e">
@@ -108,6 +111,12 @@ class Dashboard extends Component {
                       );
                   }
                 })}
+                <Route render={routeProps => (
+                  <Error404Route.component
+                    {...routeProps}
+                    loadingBar={this.state.loadingBar}
+                  />
+                )}/>
               </Switch>
             </div>
             </Suspense>

@@ -48,12 +48,14 @@ const dashboardRoutes = [
     views: [
       {
         path: "/ui-features/buttons",
+        exact: true,
         name: "Buttons",
         mini: "",
         component: ButtonContainer
       },
       {
         path: "/ui-features/typography",
+        exact: true,
         name: "Typography",
         mini: "",
         component: TypographyContainer
@@ -90,12 +92,15 @@ const dashboardRoutes = [
     views: [
       {
         path: "/sample-pages/error-404",
+        exact: true,
         name: "Error 404 Page",
+        code: "error404_page",
         mini: "",
         component: Error404Container
       },
       {
         path: "/sample-pages/error-500",
+        exact: true,
         name: "Error 500 Page",
         mini: "",
         component: Error500Container
