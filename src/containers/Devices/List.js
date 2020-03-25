@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ListComponent } from '../../components/Devices';
-import { fetchList } from '../../actions/Devices';
+// import { fetchList } from '../../actions/Devices';
 
 
 
@@ -37,7 +37,7 @@ const mapStateToProps = state => {
   }
 }
 const mapDispatchToProps = dispatch => ({
-  fetchDeviceList: () => dispatch(fetchList())
+  // fetchDeviceList: () => dispatch(fetchList())
 })
 
 export default connect(
