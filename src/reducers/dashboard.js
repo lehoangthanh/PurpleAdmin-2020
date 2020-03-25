@@ -1,5 +1,6 @@
 const initialState = {
-  isOpenMenu: false
+  isOpenMenu: false,
+  routeActive: null
 }
 const dashboardReducer = (state, action) => {
   if (typeof state === 'undefined') {
@@ -8,6 +9,9 @@ const dashboardReducer = (state, action) => {
   switch (action.type) {
     case 'setOpenMenu': {
       return {...state, isOpenMenu: action.isOpenMenu}
+    }
+    case 'SET_ROUTE_ACTIVE': {
+      return {...state, routeActive: action.routeActive}
     }
     default:
       return state;

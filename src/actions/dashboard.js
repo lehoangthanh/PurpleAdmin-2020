@@ -4,3 +4,10 @@ export const toggleMenu = (isOpenMenu) => {
     isOpenMenu: !isOpenMenu
   }
 }
+
+export const setRouteActive = (route) => {
+  return {
+    type: 'SET_ROUTE_ACTIVE',
+    routeActive: route
+  }
+}

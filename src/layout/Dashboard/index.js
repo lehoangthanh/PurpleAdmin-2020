@@ -8,7 +8,7 @@ import dashboardRoutes from '../../routes/dashboardRoutes';
 import Header from './Header';
 import SideBar from './SideBar';
 import { initLoadingBar } from '../../actions/loadingBar';
-import { toggleMenu } from '../../actions/dashboard';
+import { toggleMenu, setRouteActive } from '../../actions/dashboard';
 
 const Error404Container = React.lazy(() => import("../../containers/SamplePages/Error404Container"));
 
@@ -138,12 +138,14 @@ class Dashboard extends Component {
 const mapStateToProps = state => {
   return {
     loadingBar: state.loadingBarReducer.loadingBar,
-    isOpenMenu: state.dashboardReducer.isOpenMenu
+    isOpenMenu: state.dashboardReducer.isOpenMenu,
+    routeActive: state.dashboardReducer.routeActive
   }
 }
 const mapDispatchToProps = dispatch => ({
   initLoadingBar: (loadingBar) => dispatch(initLoadingBar(loadingBar)),
-  toggleMenu: (isOpenMenu) => dispatch(toggleMenu(isOpenMenu))
+  toggleMenu: (isOpenMenu) => dispatch(toggleMenu(isOpenMenu)),
+  setRouteActive: (route) => dispatch(setRouteActive(route))
 })
 export default connect(
   mapStateToProps,

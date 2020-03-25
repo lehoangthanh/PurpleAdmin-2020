@@ -7,10 +7,12 @@ import dashboardRoutes from '../../routes/dashboardRoutes';
 import { Helmet } from 'react-helmet';
 
 
-const setRouteStateActive = (route) => {
+const setRouteStateActive = (props) => {
+  const { route, setRouteActive: apllyRouteActive } = props
   const [routeActive, setRouteActive] = useState({});
   if (isActive(route) && _.isEmpty(routeActive)) {
     setRouteActive(route);
+    apllyRouteActive(route);
   }
 }
 
@@ -27,7 +29,7 @@ const RouteEle = (props) => {
   const { route,loadingBar } = props;
   if (!_.isNil(route.collapse) || route.collapse === true) return false;
 
-  setRouteStateActive(route);
+  setRouteStateActive(props);
 
   const handleClick = () => {
     loadingBar.continuousStart(10)

@@ -12,6 +12,8 @@ const BasicElementContainer = React.lazy(() => import("../containers/Forms/Basic
 
 const TableContainer = React.lazy(() => import("../containers/Tables/TableContainer"));
 
+const DeviceListContainer = React.lazy(() => import("../containers/Devices/List"));
+
 const Error404Container = React.lazy(() => import("../containers/SamplePages/Error404Container"));
 const Error500Container = React.lazy(() => import("../containers/SamplePages/Error500Container"));
 
@@ -50,7 +52,7 @@ const dashboardRoutes = [
         code: 'devices_list',
         name: "List",
         icon: <ListIcon/>,
-        component: ButtonContainer
+        component: DeviceListContainer
       },
       {
         path: "/devices/forms",
