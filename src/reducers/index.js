@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import todos from './todos';
-import visibilityFilter from './visibilityFilter';
+import dashboard from './dashboard';
+import loadingBar from './loadingBar';
 
 export default combineReducers({
-  todos,
-  visibilityFilter
+  dashboardReducer: dashboard,
+  loadingBarReducer: loadingBar
 })

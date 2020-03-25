@@ -1,29 +1,32 @@
 import React, { Component, Suspense } from 'react'
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux'
 import { Helmet } from 'react-helmet';
 import  _ from 'lodash';
 import LoadingBar from 'react-top-loading-bar';
 import dashboardRoutes from '../../routes/dashboardRoutes';
 import Header from './Header';
 import SideBar from './SideBar';
-import { connect } from 'react-redux'
+import { initLoadingBar } from '../../actions/loadingBar';
+import { toggleMenu } from '../../actions/dashboard';
+
 const Error404Container = React.lazy(() => import("../../containers/SamplePages/Error404Container"));
+
 
 class Dashboard extends Component {
 
   constructor () {
     super();
-    this.state = {
-      loadingBar: null,
-      isOpenMenu: false
-    }
   }
 
   componentDidMount() {
-    if(_.isNull(this.state.loadingBar)){
-      this.setState({loadingBar: this.LoadingBar})
-    }
+    if (_.isNil(this.props.LoadingBar))  this.props.initLoadingBar(this.LoadingBar);
+
   }
+
+  // componentDidUpdate() {
+  //   if (_.isNil(this.props.LoadingBar))  this.props.initLoadingBar(this.LoadingBar);
+  // }
 
   // startLoadingBar = () => {
   //   this.LoadingBar.continuousStart()
@@ -32,9 +35,8 @@ class Dashboard extends Component {
   // completeLoadingBar = () => {
   //   this.LoadingBar.complete()
   // }
-  toggleMenu = () => {
-    this.setState({isOpenMenu: !this.state.isOpenMenu})
-  }
+  // toggleMenu = () => this.props.toggleMenu(this.props.isOpenMenu);
+
   render () {
 
     // const SampleRoutes = dashboardRoutes.find( r => (!_.isNil(r.state) && r.state === 'samplePage'));
@@ -54,16 +56,12 @@ class Dashboard extends Component {
 
           <Header
             {...this.props}
-            {...this.state}
-            toggleMenu={this.toggleMenu}
+            // toggleMenu={this.toggleMenu}
           />
           {/*partial*/}
           <div className="container-fluid page-body-wrapper">
             <SideBar
               {...this.props}
-              {...this.state}
-              loadingBar={this.state.loadingBar}
-              toggleMenu={this.toggleMenu}
             />
             <Suspense fallback={<div></div>}>
             <div className="main-panel">
@@ -78,6 +76,7 @@ class Dashboard extends Component {
                             key={key}
                             render={routeProps => (
                               <prop.component
+                                {...this.props}
                                 {...routeProps}
                                 handleClick={this.handleNotificationClick}
                               />
@@ -88,12 +87,11 @@ class Dashboard extends Component {
                         return (
                           <Route
                             path={prop.path}
-                            // component={prop.component}
                             key={key}
                             render={routeProps => (
                               <prop.component
+                                {...this.props}
                                 {...routeProps}
-                                loadingBar={this.state.loadingBar}
                               />
                             )}
                           />
@@ -114,8 +112,8 @@ class Dashboard extends Component {
                           key={key}
                           render={routeProps => (
                             <prop.component
+                              {...this.props}
                               {...routeProps}
-                              loadingBar={this.state.loadingBar}
                             />
                           )}
                         />
@@ -124,8 +122,8 @@ class Dashboard extends Component {
                 })}
                 <Route render={routeProps => (
                   <Error404Container
+                      {...this.props}
                     {...routeProps}
-                    loadingBar={this.state.loadingBar}
                   />
                 )}/>
               </Switch>
@@ -137,11 +135,15 @@ class Dashboard extends Component {
     )
   }
 }
-const mapStateToProps = state => ({
-
-})
+const mapStateToProps = state => {
+  return {
+    loadingBar: state.loadingBarReducer.loadingBar,
+    isOpenMenu: state.dashboardReducer.isOpenMenu
+  }
+}
 const mapDispatchToProps = dispatch => ({
-
+  initLoadingBar: (loadingBar) => dispatch(initLoadingBar(loadingBar)),
+  toggleMenu: (isOpenMenu) => dispatch(toggleMenu(isOpenMenu))
 })
 export default connect(
   mapStateToProps,

@@ -24,19 +24,15 @@ const classActive = (route) => {
   return isActive(route) ? 'active' : '';
 }
 const RouteEle = (props) => {
-  const [loadingBar, setLoadingBar] = useState(null)
-  const { route } = props;
+  const { route,loadingBar } = props;
   if (!_.isNil(route.collapse) || route.collapse === true) return false;
 
   setRouteStateActive(route);
 
   const handleClick = () => {
     loadingBar.continuousStart(10)
-    props.toggleMenu();
+    props.toggleMenu(props.isOpenMenu);
   }
-  useEffect(() => {
-    setLoadingBar(props.loadingBar);
-  })
 
   const _classActive = classActive(route);
   return(

@@ -167,7 +167,7 @@ class Header extends Component {
               </ul>
               <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
                       data-toggle="offcanvas"
-                      onClick={() => this.props.toggleMenu() }
+                      onClick={() => this.props.toggleMenu(this.props.isOpenMenu) }
               >
                 <span className="mdi mdi-menu"></span>
               </button>
